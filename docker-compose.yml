@@ -1,29 +1,9 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:15-alpine
-    container_name: todo_postgres_db
-    restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: sua_senha
-      POSTGRES_DB: tarefas_db
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   api:
     build: .
     container_name: todo_fastapi_api
     restart: always
     ports:
       - "8000:8000"
-    environment:
-      - DATABASE_URL=postgresql://admin:sua_senha@db:5432/tarefas_db
-    depends_on:
-      - db
-
-volumes:
-  postgres_data:
